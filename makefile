@@ -5,13 +5,13 @@ CC = gcc -Wall
 CFLAGS = `pkg-config fuse3 --cflags --libs`
 
 # define sources
-FSTR_SRCS = driver_test.c disk.c 
+SRCS = driver_test.c disk.c utils.c namei.c
 
-BIN_DIR = .
-FSTR_OBJS = $(FSTR_SRCS:.c=.o)
-FSTR_TARGET = fstr
+BIN_DIR = ./bin
+OBJS = $(SRCS:.c=.o)
+TARGET = driver
 
-$(FSTR_TARGET): $(FSTR_OBJS)
+$(TARGET): $(OBJS)
 	mkdir -p $(BIN_DIR)
 	$(CC) -o $(BIN_DIR)/$@ $^ $(CFLAGS)
 	rm -f $^
@@ -19,7 +19,7 @@ $(FSTR_TARGET): $(FSTR_OBJS)
 .PHONY: clean
 
 clean:
-	rm -rf $(FSTR_OBJS) $(BIN_DIR)
+	rm -rf $(OBJS) $(BIN_DIR)
 
 
 
